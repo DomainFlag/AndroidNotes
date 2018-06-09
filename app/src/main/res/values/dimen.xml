@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Layout-->
+    <dimen name="dimen_component">16dp</dimen>
+    <dimen name="dimen_relative">8dp</dimen>
+    <dimen name="dimen_sibling">4dp</dimen>
+
+    <dimen name="dimen_negative_component">-4dp</dimen>
+
+    <!--Text-->
+    <dimen name="dimen_header">28sp</dimen>
+    <dimen name="dimen_subheader">22sp</dimen>
+    <dimen name="dimen_paragraph">16sp</dimen>
+    <dimen name="dimen_subparagraph">10sp</dimen>
+
+    <!--View Component-->
+    <dimen name="dimen_view_height">40dp</dimen>
+</resources>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_component"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:theme="@style/AppTheme"
+                style="@style/component_style">
+
+                <TextView
+                    android:text="@string/label_edit_text"
+                    style="@style/label_style"/>
+
+                <EditText
+                    android:id="@+id/edit_text_input"
+                    android:textSize="@dimen/dimen_paragraph"
+                    android:inputType="text"
+                    android:hint="@string/edit_text_placeholder"
+                    style="@style/content_style"/>
+
+                <LinearLayout
+                    style="@style/demo_style">
+
+                    <TextView
+                        android:id="@+id/edit_text_value"
+                        style="@style/demo_output_style"/>
+
+                    <Button
+                        android:id="@+id/edit_text_submit"
+                        style="@style/demo_trigger_style"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/component_style">
+
+                <TextView
+                    android:text="@string/label_checkbox"
+                    style="@style/label_style"/>
+
+                <LinearLayout
+                    android:id="@+id/checkbox_container"
+                    android:orientation="horizontal"
+                    style="@style/demo_style">
+
+                    <CheckBox
+                        android:text="@string/checkbox_value_1"
+                        style="@style/checkbox_style"/>
+
+                    <CheckBox
+                        android:text="@string/checkbox_value_2"
+                        style="@style/checkbox_style"/>
+
+                    <CheckBox
+                        android:text="@string/checkbox_value_3"
+                        style="@style/checkbox_style"/>
+
+                    <CheckBox
+                        android:text="@string/checkbox_value_4"
+                        style="@style/checkbox_style"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/demo_style">
+
+                    <TextView
+                        android:id="@+id/checkbox_value"
+                        style="@style/demo_output_style"/>
+
+                    <Button
+                        android:id="@+id/checkbox_submit"
+                        style="@style/demo_trigger_style"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/component_style">
+
+                <TextView
+                    android:text="@string/label_radio"
+                    style="@style/label_style"/>
+
+                <RadioGroup
+                    android:id="@+id/radio_group_value"
+                    android:orientation="horizontal"
+                    style="@style/content_style">
+
+                    <RadioButton
+                        android:text="@string/radio_value_1"
+                        style="@style/checkbox_style"/>
+
+                    <RadioButton
+                        android:text="@string/radio_value_2"
+                        style="@style/checkbox_style"/>
+
+                    <RadioButton
+                        android:text="@string/radio_value_3"
+                        style="@style/checkbox_style"/>
+
+                    <RadioButton
+                        android:text="@string/radio_value_4"
+                        style="@style/checkbox_style"/>
+
+                </RadioGroup>
+
+                <LinearLayout
+                    style="@style/demo_style">
+
+                    <TextView
+                        android:id="@+id/radio_value"
+                        style="@style/demo_output_style"/>
+
+                    <Button
+                        android:id="@+id/radio_submit"
+                        style="@style/demo_trigger_style"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <org.apmem.tools.layouts.FlowLayout
+                android:id="@+id/components_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </org.apmem.tools.layouts.FlowLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
