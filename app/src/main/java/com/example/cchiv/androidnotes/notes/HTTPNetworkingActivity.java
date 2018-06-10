@@ -1,11 +1,8 @@
 package com.example.cchiv.androidnotes.notes;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import com.example.cchiv.androidnotes.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,15 +14,11 @@ import java.net.URL;
 
 public class HTTPNetworkingActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.feature_layout);
-
+    public HTTPNetworkingActivity() {
         (new http_async()).execute();
     }
 
-    public class http_async extends AsyncTask<Void, Void, String> {
+    public static class http_async extends AsyncTask<Void, Void, String> {
 
         @Override
         protected void onPreExecute() {

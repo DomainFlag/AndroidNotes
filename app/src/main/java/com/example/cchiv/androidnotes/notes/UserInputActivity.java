@@ -1,6 +1,6 @@
 package com.example.cchiv.androidnotes.notes;
 
-import android.os.Bundle;
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +19,12 @@ import org.apmem.tools.layouts.FlowLayout;
 import java.util.ArrayList;
 
 public class UserInputActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.note_content_user_input);
-
-        final EditText editText = (EditText) findViewById(R.id.edit_text_input);
-        final TextView editTextValue = (TextView) findViewById(R.id.edit_text_value);
-        ((Button) findViewById(R.id.edit_text_submit))
+    
+    public UserInputActivity(final Activity activity) {
+        
+        final EditText editText = (EditText) activity.findViewById(R.id.edit_text_input);
+        final TextView editTextValue = (TextView) activity.findViewById(R.id.edit_text_value);
+        ((Button) activity.findViewById(R.id.edit_text_submit))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -36,21 +33,21 @@ public class UserInputActivity extends AppCompatActivity {
                 });
 
         final ArrayList<CheckBox> checkBoxes = new ArrayList<>();
-        LinearLayout checkboxContainer = (LinearLayout) findViewById(R.id.checkbox_container);
+        LinearLayout checkboxContainer = (LinearLayout) activity.findViewById(R.id.checkbox_container);
 
         for(int g = 0; g < checkboxContainer.getChildCount(); g++) {
             checkBoxes.add((CheckBox) checkboxContainer.getChildAt(g));
         }
 
-        final TextView checkboxValue = (TextView) findViewById(R.id.checkbox_value);
-        ((Button) findViewById(R.id.checkbox_submit))
+        final TextView checkboxValue = (TextView) activity.findViewById(R.id.checkbox_value);
+        ((Button) activity.findViewById(R.id.checkbox_submit))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         StringBuilder message = new StringBuilder();
 
                         for(CheckBox checkbox: checkBoxes
-                             ) {
+                                ) {
                             if(checkbox.isChecked()) {
                                 message.append(checkbox.getText().toString() + " + ");
                             }
@@ -67,14 +64,14 @@ public class UserInputActivity extends AppCompatActivity {
                     }
                 });
 
-        final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_group_value);
-        final TextView radioValue = (TextView) findViewById(R.id.radio_value);
-        ((Button) findViewById(R.id.radio_submit))
+        final RadioGroup radioGroup = (RadioGroup) activity.findViewById(R.id.radio_group_value);
+        final TextView radioValue = (TextView) activity.findViewById(R.id.radio_value);
+        ((Button) activity.findViewById(R.id.radio_submit))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String value = ((RadioButton) findViewById(
-                                        radioGroup.getCheckedRadioButtonId())).getText().toString();
+                        String value = ((RadioButton) activity.findViewById(
+                                radioGroup.getCheckedRadioButtonId())).getText().toString();
 
                         radioValue.setText(value);
                     }
@@ -92,7 +89,7 @@ public class UserInputActivity extends AppCompatActivity {
                 "RatingBar"
         };
 
-        FlowLayout componentsContainer = (FlowLayout) findViewById(R.id.components_container);
+        FlowLayout componentsContainer = (FlowLayout) activity.findViewById(R.id.components_container);
         for( String component:
                 components) {
             View componentView = LayoutInflater.from(getBaseContext()).inflate(R.layout.badge_layout, componentsContainer, false);

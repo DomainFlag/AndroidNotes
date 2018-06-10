@@ -1,0 +1,18 @@
+HttpURLConnection httpURLConnection;
+
+httpURLConnection = (HttpURLConnection) url.openConnection();
+
+httpURLConnection.setRequestMethod("GET");
+httpURLConnection.setConnectTimeout(15000);
+httpURLConnection.setReadTimeout(15000);
+
+httpURLConnection.connect();
+
+InputStream inputStream = httpURLConnection.getInputStream();
+InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+String line = bufferedReader.readLine();
+while(line != null) {
+    line = bufferedReader.readLine();
+}
