@@ -21,17 +21,17 @@
 
             <TextView
                 android:id="@+id/label_value"
-                tools:text="@string/label_authority"
+                tools:text="@string/label_radio"
                 style="@style/label_style"/>
 
             <TextView
                 android:id="@+id/content_value"
-                tools:text="@string/content_authority"
+                tools:text="@string/label_radio"
                 style="@style/content_style"/>
 
             <TextView
                 android:id="@+id/snippet_value"
-                tools:text="@string/snippet_authority"
+                tools:text="@string/label_radio"
                 style="@style/snippet_style"/>
 
         </LinearLayout>

@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         final String[] objects = {
                 "User Input",
-                "Intents & Activities",
+                "Intents Activities",
                 "Activity & Lifecycle",
                 "Audio Playback",
                 "Fragments",

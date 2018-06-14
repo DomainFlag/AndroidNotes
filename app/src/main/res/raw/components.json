@@ -1,35 +1,62 @@
 [
   {
-    "noteName" : "HTTP Networking Activity",
+    "noteName" : "UserInputActivity",
+    "noteComponents" : [
+      {
+        "label" : "EditText",
+        "content" : "A user interface element for entering and modifying text. When you define an edit text widget, you must specify the R.styleable.TextView_inputType attribute. For example, for plain text input set inputType to \"text\"",
+        "snippets" : "android:inputType=\"text | datetime | number | phone | multi-line | email_address\""
+      }
+    ]
+  }, {
+    "noteName" : "IntentsActivitiesActivity",
+    "noteComponents" : [
+      {
+        "label" : "Intent Explicit",
+        "content" : "Explicit intents specify which application will satisfy the intent, by supplying either the target app\'s package name or a fully-qualified component class name. You\'ll typically use an explicit intent to start a component in your own app, because you know the class name of the activity or service you want to start. For example, you might start a new activity within your app in response to a user action, or start a service to download a file in the background.",
+        "snippets" : ""
+      }, {
+        "label" : "Intent Implicit",
+        "content" : "Implicit intents do not name a specific component, but instead declare a general action to perform, which allows a component from another app to handle it. For example, if you want to show the user a location on a map, you can use an implicit intent to request that another capable app show a specified location on a map.",
+        "snippets" : [
+          "ACTION_GET_CONTENT - Request that the user select a file such as a document or photo and return a reference to your app",
+          "ACTION_SEND - Compose an email with optional attachments",
+          "ACTION_IMAGE/VIDEO_CAPTURE - Open a camera app and receive the resulting photo or video",
+          "ACTION_VIEW - Open a web page, open a contact, show a location on a map"
+        ]
+      }
+    ]
+  }, {
+    "noteName" : "HTTPNetworkingActivity",
     "noteComponents" : [
       {
         "label" : "Uri",
         "content" : "A Uniform Resource Identifier(URI) is a string of characters designed for unambiguous identification of resources and extensibility via the URI scheme.",
-        "snippet" : "URI = scheme:[//authority]path[?query][#fragment]"
+        "snippets" : "URI = scheme:[//authority]path[?query][#fragment]"
       }, {
         "label" : "Url",
         "content" : "A Uniform Resource Locator (URL), is a reference to a resource that specifies its location on a computer network and a mechanism for retrieving it. A URL is a specific type of Uniform Resource Identifier (URI), URLs occur most commonly to reference web pages (http), but are also used for file transfer (ftp), email (mailto), database access (JDBC), and many other applications.",
-        "snippet" : "URL = scheme:[//authority]path[?query][#fragment]"
+        "snippets" : "URL = scheme:[//authority]path[?query][#fragment]"
       }, {
         "label" : "Scheme",
         "content" : "Each URI begins with a scheme name that refers to a specification for assigning identifiers within that scheme. It simply tells you how to interpret the part of the URL after the colon.",
-        "snippet" : "file://usr/share/doc - the file tells me the part after the colon should be interpreted as a locally-available filesystem path and not a specific protocol.\n\nhttps://programmers.stackexchange.com - specifies a protocol (https), but still requires the client to make its own choices about the physical transport used to reach it."
+        "snippets" : "file://usr/share/doc - the file tells me the part after the colon should be interpreted as a locally-available filesystem path and not a specific protocol.\n\nhttps://programmers.stackexchange.com - specifies a protocol (https), but still requires the client to make its own choices about the physical transport used to reach it."
       }, {
         "label" : "Authority",
         "content" : "The Authority property is typically a server DNS host name or IP address. It might include the service port number if it differs from the default port for the URI.",
-        "snippet" : "authority = [userinfo@]host[:port]\n\n2942341@bbc.com:80"
+        "snippets" : "authority = [userinfo@]host[:port]\n\n2942341@bbc.com:80"
       }, {
         "label" : "Host",
         "content" : "The host conforms to the domain name of a specific server we are willing to connect to.",
-        "snippet" : "host = www.example.com"
+        "snippets" : "host = www.example.com"
       }, {
         "label" : "Path",
         "content" : "A path component, consisting of a sequence of path segments separated by a slash (/). A path is always defined for a URI. A path component may resemble or map exactly to the resource location.",
-        "snippet" : "path = /forum/questions/"
+        "snippets" : "path = /forum/questions/"
       }, {
         "label" : "Query",
         "content" : "Query string is the part of a uniform resource locator(URL) containing data that does not fit conveniently into a hierarchical path structure. The query string commonly includes fields added to a base URL used by the application by parsing it and process it to return desired data.",
-        "snippet" : "query = ?tag=networking&amp;order=newest#top"
+        "snippets" : "query = ?tag=networking&amp;order=newest#top"
       }
     ]
   }

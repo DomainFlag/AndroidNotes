@@ -1,15 +1,21 @@
 package com.example.cchiv.androidnotes.notes;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.example.cchiv.androidnotes.R;
+import android.util.Log;
 
 public class IntentsActivitiesActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.feature_layout);
+    public IntentsActivitiesActivity() {
+        super();
+    }
+
+    public IntentsActivitiesActivity(Activity activity) {
+        super();
+        doSomething();
+    }
+
+    public void doSomething() {
+        Log.v(this.getClass().getSimpleName(), "Yeahhhhhhhhhhhhhhhhhhhhhhh!");
     }
 }

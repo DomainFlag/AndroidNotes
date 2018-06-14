@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ComponentAdapter extends ArrayAdapter<Component> {
+public class ComponentAdapter extends ArrayAdapter<Note> {
 
-    public ComponentAdapter(@NonNull Context context, @NonNull ArrayList<Component> components) {
-        super(context, 0, components);
+    public ComponentAdapter(@NonNull Context context, @NonNull ArrayList<Note> notes) {
+        super(context, 0, notes);
     }
 
     @NonNull
@@ -26,11 +26,11 @@ public class ComponentAdapter extends ArrayAdapter<Component> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.note_layout, parent, false);
         }
 
-        Component component = getItem(position);
+        Note note = getItem(position);
 
-        ((TextView) view.findViewById(R.id.label_value)).setText(component.getLabel());
-        ((TextView) view.findViewById(R.id.content_value)).setText(component.getContent());
-        ((TextView) view.findViewById(R.id.snippet_value)).setText(component.getSnippet());
+        ((TextView) view.findViewById(R.id.label_value)).setText(note.getLabel());
+        ((TextView) view.findViewById(R.id.content_value)).setText(note.getContent());
+        ((TextView) view.findViewById(R.id.snippet_value)).setText(note.getSnippet());
 
         return view;
     }

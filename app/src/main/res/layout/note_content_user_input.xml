@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -14,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_component"
+            android:padding="@dimen/dimen_component"
             android:orientation="vertical">
 
             <LinearLayout
@@ -141,9 +140,8 @@
                 android:id="@+id/components_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            </org.apmem.tools.layouts.FlowLayout>
+                android:layout_margin="@dimen/dimen_relative"
+                android:orientation="horizontal"/>
 
         </LinearLayout>
 

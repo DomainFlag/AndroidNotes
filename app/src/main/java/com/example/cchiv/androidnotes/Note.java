@@ -1,10 +1,10 @@
 package com.example.cchiv.androidnotes;
 
-public class Component {
+public class Note {
 
     private String label, content, snippet;
 
-    Component(String label, String content, String snippet) {
+    Note(String label, String content, String snippet) {
         this.label = label;
         this.content = content;
         this.snippet = snippet;

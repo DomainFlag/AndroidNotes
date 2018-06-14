@@ -19,9 +19,12 @@ import org.apmem.tools.layouts.FlowLayout;
 import java.util.ArrayList;
 
 public class UserInputActivity extends AppCompatActivity {
+
+    public UserInputActivity() {
+        super();
+    }
     
     public UserInputActivity(final Activity activity) {
-        
         final EditText editText = (EditText) activity.findViewById(R.id.edit_text_input);
         final TextView editTextValue = (TextView) activity.findViewById(R.id.edit_text_value);
         ((Button) activity.findViewById(R.id.edit_text_submit))
@@ -77,24 +80,22 @@ public class UserInputActivity extends AppCompatActivity {
                     }
                 });
 
-        String[] components = new String[] {
-                "AutoCompleteTextView",
-                "ToggleButton",
-                "ProgressBar",
-                "Spinner",
-                "TimePicker",
-                "SeekBar",
-                "AlertDialog",
-                "Switch",
-                "RatingBar"
-        };
+        ArrayList<String> arrayList = new ArrayList<String>();
+        arrayList.add("AutoCompleteTextView");
+        arrayList.add("ToggleButton");
+        arrayList.add("ProgressBar");
+        arrayList.add("Spinner");
+        arrayList.add("TimePicker");
+        arrayList.add("SeekBar");
+        arrayList.add("AlertDialog");
+        arrayList.add("Switch");
+        arrayList.add("RatingBar");
 
         FlowLayout componentsContainer = (FlowLayout) activity.findViewById(R.id.components_container);
-        for( String component:
-                components) {
-            View componentView = LayoutInflater.from(getBaseContext()).inflate(R.layout.badge_layout, componentsContainer, false);
+        for(String missedNote : arrayList) {
+            View componentView = LayoutInflater.from(activity.getApplicationContext()).inflate(R.layout.badge_layout, componentsContainer, false);
 
-            ((TextView) componentView.findViewById(R.id.info_text)).setText(component);
+            ((TextView) componentView.findViewById(R.id.info_text)).setText(missedNote);
 
             componentsContainer.addView(componentView);
         }

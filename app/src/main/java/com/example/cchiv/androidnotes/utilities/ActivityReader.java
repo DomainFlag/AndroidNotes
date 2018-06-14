@@ -25,6 +25,8 @@ public class ActivityReader {
             inputStream = assetManager.open("snippets/" + snippetName + ".txt");
         } catch(IOException e) {
             Log.v(this.getClass().getSimpleName(), e.toString());
+
+            return null;
         }
 
         if(inputStream != null) {

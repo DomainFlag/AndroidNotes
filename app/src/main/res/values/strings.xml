@@ -11,6 +11,7 @@
     <!--Components-->
     <string name="component_button">SUBMIT</string>
 
+
     <!--User Input Activity-->
     <!--EditText-->
     <string name="label_edit_text">Edit Text</string>
@@ -34,77 +35,13 @@
 
 
     <!--HTTP Networking Activity-->
-    <string name="label_uri">Uri</string>
-    <string name="content_uri">
-        A Uniform Resource Identifier(URI) is a string of characters designed for unambiguous identification of resources and extensibility via the URI scheme.</string>
-    <string name="snippet_uri">
-        URI = scheme:[//authority]path[?query][#fragment]
-    </string>
+    <!--Header-->
+    <string name="label_http_networking">Blizzard API</string>
 
-    <string name="label_url">Url</string>
-    <string name="content_url">
-        A Uniform Resource Locator (URL), is a reference to a resource that specifies its location on a computer network and a mechanism for retrieving it. A URL is a specific type of Uniform Resource Identifier (URI), URLs occur most commonly to reference web pages (http), but are also used for file transfer (ftp), email (mailto), database access (JDBC), and many other applications.
-    </string>
-    <string name="snippet_url">
-        URL = scheme:[//authority]path[?query][#fragment]
-    </string>
+    <!--Profile-->
+    <string name="label_profile">Get Profile</string>
 
-    <string name="label_scheme">Scheme</string>
-    <string name="content_scheme">
-        Each URI begins with a scheme name that refers to a specification for assigning identifiers within that scheme. It simply tells you how to interpret the part of the URL after the colon.
-    </string>
-    <string name="snippet_scheme">
-        file://usr/share/doc - the file tells me the part after the colon should be interpreted as a locally-available filesystem path and not a specific protocol.\n\nhttps://programmers.stackexchange.com - specifies a protocol (https), but still requires the client to make its own choices about the physical transport used to reach it.
-    </string>
-
-    <string name="label_authority">Authority</string>
-    <string name="content_authority">
-        The Authority property is typically a server DNS host name or IP address. It might include the service port number if it differs from the default port for the URI.
-    </string>
-    <string name="snippet_authority">
-        authority = [userinfo@]host[:port]
-        2942341@bbc.com:80
-    </string>
-    <string name="demo_authority">
-       private const String Authority = "p1612186@linuxetu.univ-lyon1.fr:22"
-    </string>
-
-    <string name="label_host">Host</string>
-    <string name="content_host">
-        The host conforms to the domain name of a specific server we are willing to connect to.
-    </string>
-    <string name="snippet_host">
-        host = www.example.com
-    </string>
-
-    <string name="label_path">Path</string>
-    <string name="content_path">
-        A path component, consisting of a sequence of path segments separated by a slash (/). A path is always defined for a URI. A path component may resemble or map exactly to the resource location.
-    </string>
-    <string name="snippet_path">
-        path = /forum/questions/
-    </string>
-
-    <string name="label_query">Query</string>
-    <string name="content_query">
-        Query string is the part of a uniform resource locator(URL) containing data that does not fit conveniently into a hierarchical path structure. The query string commonly includes fields added to a base URL used by the application by parsing it and process it to return desired data.
-    </string>
-    <string name="snippet_query">
-        query = ?tag=networking&amp;order=newest#top
-    </string>
-
-
-    <!--Intents and Activity-->
-    <string name="label_intent">Intents</string>
-
-    <string name="intent_explicit">Explicit intents specify which application will satisfy the intent, by supplying either the target app\'s package name or a fully-qualified component class name. You\'ll typically use an explicit intent to start a component in your own app, because you know the class name of the activity or service you want to start. For example, you might start a new activity within your app in response to a user action, or start a service to download a file in the background.</string>
-    <string name="intent_implicit">Implicit intents do not name a specific component, but instead declare a general action to perform, which allows a component from another app to handle it. For example, if you want to show the user a location on a map, you can use an implicit intent to request that another capable app show a specified location on a map.</string>
-
-    <string name="label_types_intent">Types</string>
-
-    <string name="intent_types">ACTION_GET_CONTENT(Request that the user select a file such as a document or photo and return a reference to your app)\n
-        ACTION_SEND(Compose an email with optional attachments)\n
-        ACTION_IMAGE/VIDEO_CAPTURE(Open a camera app and receive the resulting photo or video)\n
-        ACTION_VIEW(Open a web page, open a contact, show a location on a map)
-    </string>
+    <string name="label_content_user_name">User Name:</string>
+    <string name="label_content_id">ID:</string>
+    <string name="label_content_region">Region:</string>
 </resources>

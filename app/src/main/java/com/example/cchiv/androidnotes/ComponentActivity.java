@@ -1,7 +1,6 @@
 package com.example.cchiv.androidnotes;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,16 +25,30 @@ import java.util.ArrayList;
 
 public class ComponentActivity extends AppCompatActivity {
 
+    private String component;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_component);
 
-        ActivityReader activityReader = new ActivityReader(this);
+        this.component = getIntent().getStringExtra("component");
+        setTitle(this.component);
 
-        String noteString = getIntent().getStringExtra("component");
-        setTitle(noteString);
+        ListView listView = (ListView) findViewById(R.id.component_list);
 
+        ComponentAdapter componentAdapter = new ComponentAdapter(this, fetchNotes());
+
+        updateDemoContent(listView);
+        updateNotesContent(listView);
+        updateSnippetContent(listView);
+
+        listView.setAdapter(componentAdapter);
+
+        runActivityComponent();
+    }
+
+    StringBuilder fetchNotesString() {
         InputStream is = getResources().openRawResource(R.raw.components);
         InputStreamReader inputStreamReader = new InputStreamReader(is);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -52,8 +65,13 @@ public class ComponentActivity extends AppCompatActivity {
             Log.v(this.getClass().getSimpleName(), io.toString());
         }
 
+        return jsonData;
+    }
 
-        ArrayList<Component> components = new ArrayList<>();
+    ArrayList<Note> fetchNotes() {
+        StringBuilder jsonData = fetchNotesString();
+
+        ArrayList<Note> notes = new ArrayList<>();
 
         try {
             JSONArray noteArray = new JSONArray(jsonData.toString());
@@ -62,63 +80,31 @@ public class ComponentActivity extends AppCompatActivity {
             int it = 0;
             do {
                 note = noteArray.getJSONObject(it);
-            } while(note.getString("noteName").equals("HTTP Networking Activity") && ++it < noteArray.length());
+                it++;
+            } while(!note.getString("noteName").equals(this.component) && it < noteArray.length());
 
             JSONArray jsonArray = note.getJSONArray("noteComponents");
 
             for(it = 0; it < jsonArray.length(); it++) {
                 JSONObject component = jsonArray.getJSONObject(it);
 
-                components.add(new Component(
+                notes.add(new Note(
                         component.getString("label"),
                         component.getString("content"),
-                        component.getString("snippet")
+                        component.getString("snippets")
                 ));
             }
         } catch(JSONException e) {
             Log.v(this.getClass().getSimpleName(), e.toString());
         }
 
-        ListView listView = (ListView) findViewById(R.id.component_list);
-        Resources resources = getResources();
+        return notes;
+    }
 
-        /* Snippet Code Content */
-        View dividerSnippetView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
-        ((TextView) dividerSnippetView.findViewById(R.id.divider_text)).setText(R.string.component_snippet);
-        listView.addHeaderView(dividerSnippetView);
-
-        LinearLayout featureSnippetView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
-        ((LinearLayout) featureSnippetView.findViewById(R.id.feature_layout)).addView(
-                LayoutInflater
-                        .from(listView.getContext())
-                        .inflate(R.layout.snippet_layout, featureSnippetView, false)
-        );
-        ((TextView) featureSnippetView.findViewById(R.id.snippet_content)).setText(activityReader.readSnippet("HTTPNetworking"));
-        listView.addHeaderView(featureSnippetView);
-
-        /* Demo Content */
-        View dividerDemoView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
-        ((TextView) dividerDemoView.findViewById(R.id.divider_text)).setText(R.string.component_demo);
-        listView.addHeaderView(dividerDemoView);
-
-        LinearLayout featureDemoView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
-        ((LinearLayout) featureDemoView.findViewById(R.id.feature_layout)).addView(
-                LayoutInflater
-                        .from(listView.getContext())
-                        .inflate(R.layout.note_content_user_input, featureDemoView, false)
-        );
-        listView.addHeaderView(featureDemoView);
-
-        /* Notes Content */
-        View dividerNotesView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
-        ((TextView) dividerNotesView.findViewById(R.id.divider_text)).setText(R.string.component_notes);
-        listView.addHeaderView(dividerNotesView);
-
-        ComponentAdapter componentAdapter = new ComponentAdapter(this, components);
-
+    public void runActivityComponent() {
         try {
             Class
-                    .forName("com.example.cchiv.androidnotes.notes.UserInputActivity")
+                    .forName("com.example.cchiv.androidnotes.notes." + this.component)
                     .getConstructor(Activity.class)
                     .newInstance(this);
         } catch(ClassNotFoundException e) {
@@ -132,7 +118,43 @@ public class ComponentActivity extends AppCompatActivity {
         } catch(InvocationTargetException e) {
             Log.v(this.getClass().getSimpleName(), e.getCause().toString());
         }
+    }
 
-        listView.setAdapter(componentAdapter);
+    public void updateDemoContent(ListView listView) {
+        View dividerDemoView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
+        ((TextView) dividerDemoView.findViewById(R.id.divider_text)).setText(R.string.component_demo);
+        listView.addHeaderView(dividerDemoView);
+
+        LinearLayout featureDemoView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
+        ((LinearLayout) featureDemoView.findViewById(R.id.feature_layout)).addView(
+                LayoutInflater
+                        .from(listView.getContext())
+                        .inflate(R.layout.note_content_http_networking, featureDemoView, false)
+        );
+        listView.addHeaderView(featureDemoView);
+    }
+
+
+    public void updateNotesContent(ListView listView) {
+        View dividerNotesView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
+        ((TextView) dividerNotesView.findViewById(R.id.divider_text)).setText(R.string.component_notes);
+        listView.addHeaderView(dividerNotesView);
+    }
+
+    public void updateSnippetContent(ListView listView) {
+        ActivityReader activityReader = new ActivityReader(this);
+
+        View dividerSnippetView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
+        ((TextView) dividerSnippetView.findViewById(R.id.divider_text)).setText(R.string.component_snippet);
+        listView.addHeaderView(dividerSnippetView);
+
+        LinearLayout featureSnippetView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
+        ((LinearLayout) featureSnippetView.findViewById(R.id.feature_layout)).addView(
+                LayoutInflater
+                        .from(listView.getContext())
+                        .inflate(R.layout.snippet_layout, featureSnippetView, false)
+        );
+
+        ((TextView) featureSnippetView.findViewById(R.id.snippet_content)).setText(activityReader.readSnippet(this.component));
     }
 }

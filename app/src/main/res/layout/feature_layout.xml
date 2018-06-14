@@ -6,7 +6,10 @@
     android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dimen_relative"
+    android:paddingLeft="@dimen/dimen_component"
+    android:paddingRight="@dimen/dimen_component"
+    android:paddingTop="@dimen/dimen_relative"
+    android:paddingBottom="@dimen/dimen_relative"
     android:orientation="vertical">
 
 
