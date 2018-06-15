@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String trimmedClassName = objects[i].replaceAll("(\\s[\\s&]*\\s?)", "") + "Activity";
+                String trimmedClassName = objects[i].replaceAll("(\\s[\\s&]*\\s?)", " ") + " Activity";
 
                 Intent intent = new Intent(MainActivity.this, ComponentActivity.class);
                 intent.putExtra("component", trimmedClassName);

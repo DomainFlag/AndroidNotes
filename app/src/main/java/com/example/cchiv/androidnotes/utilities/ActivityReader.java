@@ -18,7 +18,7 @@ public class ActivityReader {
     }
 
     public String readSnippet(String snippetName) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder("");
 
         InputStream inputStream = null;
         try {

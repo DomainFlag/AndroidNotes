@@ -26,29 +26,29 @@ import java.util.ArrayList;
 public class ComponentActivity extends AppCompatActivity {
 
     private String component;
+    private String demo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_component);
 
-        this.component = getIntent().getStringExtra("component");
+        this.component = getIntent().getStringExtra("component").replaceAll("\\s+", "");
         setTitle(this.component);
+
+        this.demo = getIntent().getStringExtra("component").toLowerCase().replaceAll("\\s+", "_");
 
         ListView listView = (ListView) findViewById(R.id.component_list);
 
-        ComponentAdapter componentAdapter = new ComponentAdapter(this, fetchNotes());
-
         updateDemoContent(listView);
-        updateNotesContent(listView);
         updateSnippetContent(listView);
-
-        listView.setAdapter(componentAdapter);
+        updateNotesContent(listView);
 
         runActivityComponent();
     }
 
     StringBuilder fetchNotesString() {
+
         InputStream is = getResources().openRawResource(R.raw.components);
         InputStreamReader inputStreamReader = new InputStreamReader(is);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -69,6 +69,7 @@ public class ComponentActivity extends AppCompatActivity {
     }
 
     ArrayList<Note> fetchNotes() {
+
         StringBuilder jsonData = fetchNotesString();
 
         ArrayList<Note> notes = new ArrayList<>();
@@ -120,41 +121,58 @@ public class ComponentActivity extends AppCompatActivity {
         }
     }
 
-    public void updateDemoContent(ListView listView) {
-        View dividerDemoView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
-        ((TextView) dividerDemoView.findViewById(R.id.divider_text)).setText(R.string.component_demo);
-        listView.addHeaderView(dividerDemoView);
+    public void inflateHeaderDivider(ListView listView, int textDividerResource) {
+        View dividerNotesView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
+        ((TextView) dividerNotesView.findViewById(R.id.divider_text)).setText(textDividerResource);
+        listView.addHeaderView(dividerNotesView);
+    }
 
-        LinearLayout featureDemoView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
-        ((LinearLayout) featureDemoView.findViewById(R.id.feature_layout)).addView(
+    public View inflateHeaderFeature(ListView listView, int layoutResourceIdentifier) {
+        LinearLayout featureView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
+        ((LinearLayout) featureView.findViewById(R.id.feature_layout)).addView(
                 LayoutInflater
                         .from(listView.getContext())
-                        .inflate(R.layout.note_content_http_networking, featureDemoView, false)
+                        .inflate(layoutResourceIdentifier, featureView, false)
         );
-        listView.addHeaderView(featureDemoView);
+
+        listView.addHeaderView(featureView);
+
+        return featureView;
+    }
+
+    public void updateDemoContent(ListView listView) {
+
+        int resourceLayoutIdentifier = getResources().getIdentifier(this.demo, "layout", getPackageName());
+
+        if(resourceLayoutIdentifier != 0) {
+            inflateHeaderDivider(listView, R.string.component_demo);
+
+            inflateHeaderFeature(listView, resourceLayoutIdentifier);
+        }
     }
 
 
     public void updateNotesContent(ListView listView) {
-        View dividerNotesView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
-        ((TextView) dividerNotesView.findViewById(R.id.divider_text)).setText(R.string.component_notes);
-        listView.addHeaderView(dividerNotesView);
+
+        ArrayList<Note> notes = fetchNotes();
+
+        if(!notes.isEmpty()) {
+            inflateHeaderDivider(listView, R.string.component_notes);
+
+            ComponentAdapter componentAdapter = new ComponentAdapter(this, fetchNotes());
+            listView.setAdapter(componentAdapter);
+        }
     }
 
     public void updateSnippetContent(ListView listView) {
+
         ActivityReader activityReader = new ActivityReader(this);
+        String snippet = activityReader.readSnippet(this.component);
 
-        View dividerSnippetView = LayoutInflater.from(listView.getContext()).inflate(R.layout.divider_layout, listView, false);
-        ((TextView) dividerSnippetView.findViewById(R.id.divider_text)).setText(R.string.component_snippet);
-        listView.addHeaderView(dividerSnippetView);
+        if(!snippet.isEmpty()) {
+            inflateHeaderDivider(listView, R.string.component_snippet);
 
-        LinearLayout featureSnippetView = (LinearLayout) LayoutInflater.from(listView.getContext()).inflate(R.layout.feature_layout, listView, false);
-        ((LinearLayout) featureSnippetView.findViewById(R.id.feature_layout)).addView(
-                LayoutInflater
-                        .from(listView.getContext())
-                        .inflate(R.layout.snippet_layout, featureSnippetView, false)
-        );
-
-        ((TextView) featureSnippetView.findViewById(R.id.snippet_content)).setText(activityReader.readSnippet(this.component));
+            ((TextView) inflateHeaderFeature(listView, R.layout.snippet_layout).findViewById(R.id.snippet_content)).setText(snippet);
+        }
     }
 }
