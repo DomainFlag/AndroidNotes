@@ -11,20 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ComponentActivity">
+        <activity android:name=".ComponentActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         <activity android:name=".notes.UserInputActivity">
         </activity>
         <activity android:name=".notes.IntentsActivitiesActivity">
         </activity>
-        <activity android:name=".notes.HTTPNetworkingActivity">
+        <activity android:name=".notes.HTTPNetworkingActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
     </application>
 

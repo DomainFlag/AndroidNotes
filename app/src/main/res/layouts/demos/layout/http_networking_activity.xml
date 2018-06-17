@@ -20,14 +20,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_relative"
+                android:layout_margin="@dimen/dimen_component"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimen_subheader"
-                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/dimen_header"
+                android:textColor="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:text="@string/label_http_networking"/>
 
             <LinearLayout
+                android:layout_marginTop="@dimen/dimen_component"
                 style="@style/component_style">
 
                 <TextView
@@ -99,12 +100,18 @@
                 <LinearLayout
                     style="@style/demo_style">
 
+                    <ImageView
+                        android:id="@+id/response_profile_portrait"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Portrait here..."/>
+
                     <TextView
-                        android:id="@+id/radio_value"
+                        android:id="@+id/response_profile_displayName"
                         style="@style/demo_output_style"/>
 
                     <Button
-                        android:id="@+id/radio_submit"
+                        android:id="@+id/api_request_submit"
                         style="@style/demo_trigger_style"/>
 
                 </LinearLayout>
