@@ -44,4 +44,11 @@
     <string name="label_content_user_name">User Name:</string>
     <string name="label_content_id">ID:</string>
     <string name="label_content_region">Region:</string>
+
+
+    <!--Intents Activity-->
+    <!--ACTION_GET_CONTENT-->
+    <string name="label_intent_action_get_content">ACTION_GET_CONTENT</string>
+
+    <string name="label_content_description">Pick any image</string>
 </resources>

@@ -30,7 +30,21 @@ public class ComponentAdapter extends ArrayAdapter<Note> {
 
         ((TextView) view.findViewById(R.id.label_value)).setText(note.getLabel());
         ((TextView) view.findViewById(R.id.content_value)).setText(note.getContent());
-        ((TextView) view.findViewById(R.id.snippet_value)).setText(note.getSnippet());
+
+        ArrayList<Snippet> snippets = note.getSnippets();
+        if(snippets != null) {
+            StringBuilder snippetsBuilder = new StringBuilder("");
+
+            for(int it = 0; it < snippets.size(); it++) {
+                Snippet snippet = snippets.get(it);
+                snippetsBuilder.append(snippet.getSnippet());
+                snippetsBuilder.append("\n");
+                snippetsBuilder.append(snippet.getDetailed());
+                snippetsBuilder.append("\n\n");
+            }
+
+            ((TextView) view.findViewById(R.id.snippet_value)).setText(snippetsBuilder.toString());
+        } else ((TextView) view.findViewById(R.id.snippet_value)).setText(note.getSnippet());
 
         return view;
     }

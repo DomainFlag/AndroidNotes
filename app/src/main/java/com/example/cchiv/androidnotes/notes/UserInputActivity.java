@@ -1,6 +1,7 @@
 package com.example.cchiv.androidnotes.notes;
 
-import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.cchiv.androidnotes.R;
+import com.example.cchiv.androidnotes.utilities.ComponentRender;
 
 import org.apmem.tools.layouts.FlowLayout;
 
@@ -20,14 +22,25 @@ import java.util.ArrayList;
 
 public class UserInputActivity extends AppCompatActivity {
 
-    public UserInputActivity() {
-        super();
+    private String component;
+    private String demo;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_component);
+
+        this.component = getIntent().getStringExtra("className");
+        this.demo = getIntent().getStringExtra("snippetName");
+
+        ComponentRender componentRender = new ComponentRender(this, R.id.component_list, this.component, this.demo);
+        updateUI();
     }
-    
-    public UserInputActivity(final Activity activity) {
-        final EditText editText = (EditText) activity.findViewById(R.id.edit_text_input);
-        final TextView editTextValue = (TextView) activity.findViewById(R.id.edit_text_value);
-        ((Button) activity.findViewById(R.id.edit_text_submit))
+
+    public void updateUI() {
+        final EditText editText = (EditText) findViewById(R.id.edit_text_input);
+        final TextView editTextValue = (TextView) findViewById(R.id.edit_text_value);
+        ((Button) findViewById(R.id.edit_text_submit))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -36,21 +49,20 @@ public class UserInputActivity extends AppCompatActivity {
                 });
 
         final ArrayList<CheckBox> checkBoxes = new ArrayList<>();
-        LinearLayout checkboxContainer = (LinearLayout) activity.findViewById(R.id.checkbox_container);
+        LinearLayout checkboxContainer = (LinearLayout) findViewById(R.id.checkbox_container);
 
         for(int g = 0; g < checkboxContainer.getChildCount(); g++) {
             checkBoxes.add((CheckBox) checkboxContainer.getChildAt(g));
         }
 
-        final TextView checkboxValue = (TextView) activity.findViewById(R.id.checkbox_value);
-        ((Button) activity.findViewById(R.id.checkbox_submit))
+        final TextView checkboxValue = (TextView) findViewById(R.id.checkbox_value);
+        ((Button) findViewById(R.id.checkbox_submit))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         StringBuilder message = new StringBuilder();
 
-                        for(CheckBox checkbox: checkBoxes
-                                ) {
+                        for(CheckBox checkbox: checkBoxes) {
                             if(checkbox.isChecked()) {
                                 message.append(checkbox.getText().toString() + " + ");
                             }
@@ -67,13 +79,13 @@ public class UserInputActivity extends AppCompatActivity {
                     }
                 });
 
-        final RadioGroup radioGroup = (RadioGroup) activity.findViewById(R.id.radio_group_value);
-        final TextView radioValue = (TextView) activity.findViewById(R.id.radio_value);
-        ((Button) activity.findViewById(R.id.radio_submit))
+        final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_group_value);
+        final TextView radioValue = (TextView) findViewById(R.id.radio_value);
+        ((Button) findViewById(R.id.radio_submit))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String value = ((RadioButton) activity.findViewById(
+                        String value = ((RadioButton) findViewById(
                                 radioGroup.getCheckedRadioButtonId())).getText().toString();
 
                         radioValue.setText(value);
@@ -91,9 +103,9 @@ public class UserInputActivity extends AppCompatActivity {
         arrayList.add("Switch");
         arrayList.add("RatingBar");
 
-        FlowLayout componentsContainer = (FlowLayout) activity.findViewById(R.id.components_container);
+        FlowLayout componentsContainer = (FlowLayout) findViewById(R.id.components_container);
         for(String missedNote : arrayList) {
-            View componentView = LayoutInflater.from(activity.getApplicationContext()).inflate(R.layout.badge_layout, componentsContainer, false);
+            View componentView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.badge_layout, componentsContainer, false);
 
             ((TextView) componentView.findViewById(R.id.info_text)).setText(missedNote);
 

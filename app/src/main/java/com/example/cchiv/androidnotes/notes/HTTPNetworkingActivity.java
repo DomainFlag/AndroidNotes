@@ -1,8 +1,9 @@
 package com.example.cchiv.androidnotes.notes;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.cchiv.androidnotes.R;
 import com.example.cchiv.androidnotes.utilities.BitmapLoader;
+import com.example.cchiv.androidnotes.utilities.ComponentRender;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +26,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HTTPNetworkingActivity extends AppCompatActivity {
-
-    private Activity activityContext;
 
     private static final String SCHEME = "https";
     private static final String AUTHORITY = "eu.api.battle.net";
@@ -42,22 +42,28 @@ public class HTTPNetworkingActivity extends AppCompatActivity {
 
     private String TAG;
 
-    public HTTPNetworkingActivity() {
-        super();
+    private String component;
+    private String demo;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_component);
+
+        this.component = getIntent().getStringExtra("className");
+        this.demo = getIntent().getStringExtra("snippetName");
+        this.TAG = this.component;
+
+        ComponentRender componentRender = new ComponentRender(this, R.id.component_list, this.component, this.demo);
+        updateUI();
     }
 
-    public HTTPNetworkingActivity(Activity activity) {
-        super();
+    public void updateUI() {
+        usernameTextView  = (TextView) findViewById(R.id.profile_username);
+        regionTextView  = (TextView) findViewById(R.id.profile_region);
+        idTextView  = (TextView) findViewById(R.id.profile_id);
 
-        this.TAG = activity.getClass().getCanonicalName();
-
-        activityContext = activity;
-
-        usernameTextView  = (TextView) activity.findViewById(R.id.profile_username);
-        regionTextView  = (TextView) activity.findViewById(R.id.profile_region);
-        idTextView  = (TextView) activity.findViewById(R.id.profile_id);
-
-        ((Button) activity.findViewById(R.id.api_request_submit))
+        ((Button) findViewById(R.id.api_request_submit))
                 .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +91,7 @@ public class HTTPNetworkingActivity extends AppCompatActivity {
             if(jsonObject.has("displayName")) {
                 String displayName = jsonObject.getString("displayName");
 
-                ((TextView) activityContext.findViewById(R.id.response_profile_displayName)).setText(displayName);
+                ((TextView) findViewById(R.id.response_profile_displayName)).setText(displayName);
             }
 
             if(jsonObject.has("portrait")) {
@@ -94,8 +100,8 @@ public class HTTPNetworkingActivity extends AppCompatActivity {
                     URL url = null;
                     try {
                         url = new URL(portrait.getString("url"));
-                        BitmapLoader bitmapLoader = new BitmapLoader(url, activityContext.findViewById(R.id.response_profile_portrait));
-                        bitmapLoader.loadImage();
+                        BitmapLoader bitmapLoader = new BitmapLoader(this);
+                        bitmapLoader.loadBitmapInBackground(url, R.id.response_profile_portrait);
                     } catch(MalformedURLException e) {
                         Log.v(TAG, e.toString());
                     }

@@ -3,6 +3,7 @@ package com.example.cchiv.androidnotes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
         final String[] objects = {
                 "User Input",
-                "Intents Activities",
-                "Activity & Lifecycle",
-                "Audio Playback",
+                "Intents",
+                "Activity Lifecycle",
+                "Media",
                 "Fragments",
                 "HTTP Networking",
                 "Responsive Design",
@@ -29,13 +30,12 @@ public class MainActivity extends AppCompatActivity {
                 "SQLite",
                 "Content Provider",
                 "Cursor Loader",
-                "Recycle View",
+                "Recycler View",
                 "ListView",
                 "Loader",
                 "Service",
                 "Notifications",
                 "Job Scheduler",
-                "AsyncTask",
                 "Broadcast Receiver",
                 "Constraint Layout"
         };
@@ -48,11 +48,21 @@ public class MainActivity extends AppCompatActivity {
         activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String trimmedClassName = objects[i].replaceAll("(\\s[\\s&]*\\s?)", " ") + " Activity";
+                String trimmedClassName = objects[i].replaceAll("(\\s[\\s&]*\\s?)", "") + "Activity";
+                String trimmedSnippetName = objects[i].toLowerCase().replaceAll("(\\s[\\s&]*\\s?)", "_") + "_activity";
 
-                Intent intent = new Intent(MainActivity.this, ComponentActivity.class);
-                intent.putExtra("component", trimmedClassName);
-                startActivity(intent);
+                try {
+                    Class<?> desiredClass = Class
+                            .forName("com.example.cchiv.androidnotes.notes." + trimmedClassName);
+
+                    Intent intent = new Intent(MainActivity.this, desiredClass);
+                    intent.putExtra("className", trimmedClassName);
+                    intent.putExtra("snippetName", trimmedSnippetName);
+
+                    startActivity(intent);
+                } catch(ClassNotFoundException e) {
+                    Log.v(MainActivity.class.getSimpleName(), e.toString());
+                }
             }
         });
     }

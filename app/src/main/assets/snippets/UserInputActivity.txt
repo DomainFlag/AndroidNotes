@@ -1,18 +1,21 @@
-HttpURLConnection httpURLConnection;
+/* CheckBox */
+ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+LinearLayout checkboxContainer = (LinearLayout) activity.findViewById(R.id.checkbox_container);
 
-httpURLConnection = (HttpURLConnection) url.openConnection();
-
-httpURLConnection.setRequestMethod("GET");
-httpURLConnection.setConnectTimeout(15000);
-httpURLConnection.setReadTimeout(15000);
-
-httpURLConnection.connect();
-
-InputStream inputStream = httpURLConnection.getInputStream();
-InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-String line = bufferedReader.readLine();
-while(line != null) {
-    line = bufferedReader.readLine();
+for(int g = 0; g < checkboxContainer.getChildCount(); g++) {
+    checkBoxes.add((CheckBox) checkboxContainer.getChildAt(g));
 }
+
+for(CheckBox checkbox: checkBoxes) {
+     if(checkbox.isChecked()) {
+         // Do something with checkbox.getText()
+     }
+}
+
+/* RadioGroup */
+RadioGroup radioGroup = (RadioGroup) activity.findViewById(R.id.radio_group_value);
+String value = ((RadioButton) activity.findViewById(
+    radioGroup.getCheckedRadioButtonId())
+    ).getText();
+
+// Do something with value

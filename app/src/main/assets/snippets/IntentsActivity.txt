@@ -1,0 +1,14 @@
+/* Intent Explicit */
+// Intent(Context packageContext, Class<?> cls)
+// packageContext a Context of the application package implementing this class.
+
+Intent intent = new Intent(this, NextActivity.class);
+startActivity(intent);
+
+
+/* Intent Implicit */
+// Intent(String action, Uri uri)
+// Create an intent with a given action and for a given data url.
+
+Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+startActivity(browserIntent);

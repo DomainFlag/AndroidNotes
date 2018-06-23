@@ -79,18 +79,21 @@
                             android:id="@+id/profile_username"
                             android:hint="@string/edit_text_placeholder"
                             android:inputType="text"
+                            android:text="DomainFlag"
                             style="@style/form_edit_text"/>
 
                         <EditText
                             android:id="@+id/profile_region"
                             android:inputType="numberDecimal"
                             android:hint="@string/edit_text_placeholder"
+                            android:text="1"
                             style="@style/form_edit_text"/>
 
                         <EditText
                             android:id="@+id/profile_id"
                             android:inputType="number"
                             android:hint="@string/edit_text_placeholder"
+                            android:text="3898655"
                             style="@style/form_edit_text"/>
 
                     </LinearLayout>

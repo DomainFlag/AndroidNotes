@@ -10,16 +10,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ActivityReader {
-
     private AssetManager assetManager;
 
     public ActivityReader(Context context) {
         this.assetManager = context.getAssets();
     }
 
-    public String readSnippet(String snippetName) {
-        StringBuilder stringBuilder = new StringBuilder("");
-
+    public StringBuilder readSnippet(String snippetName) {
         InputStream inputStream = null;
         try {
             inputStream = assetManager.open("snippets/" + snippetName + ".txt");
@@ -29,21 +26,28 @@ public class ActivityReader {
             return null;
         }
 
+        StringBuilder stringBuilder = null;
         if(inputStream != null) {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
             try {
+                stringBuilder = new StringBuilder("");
+
                 String line = bufferedReader.readLine();
                 while(line != null) {
                     stringBuilder.append(line);
                     stringBuilder.append("\n");
+
                     line = bufferedReader.readLine();
                 }
             } catch(IOException e) {
                 Log.v(this.getClass().getSimpleName(), e.toString());
+
+                return null;
             }
         }
 
-        return stringBuilder.toString();
+        return stringBuilder;
     }
 }
